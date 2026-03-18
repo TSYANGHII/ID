@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSYANGHII - 个人主页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #f5f7ff 0%, #e6e9ff 100%);
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+
+    /* 头部区域 */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 50px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #667eea;
+      box-shadow: 0 6px 24px rgba(102, 126, 234, 0.25);
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3.2rem;
+      font-weight: bold;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 36px rgba(102, 126, 234, 0.4);
+    }
+
+    .profile-info h1 {
+      font-size: 2.8rem;
+      color: #333;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .tags {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .school-info {
+      font-size: 1.15rem;
+      color: #666;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .contact-info {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 1.05rem;
+    }
+
+    .contact-item:hover {
+      color: #764ba2;
+    }
+
+    .motto {
+      font-size: 1rem;
+      color: white;
+      font-style: italic;
+      margin: 15px 0;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 6px rgba(102, 126, 234, 0.25);
+    }
+
+    /* 内容区域 */
+    .content-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .content-grid {
+        gap: 20px;
+      }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(102, 126, 234, 0.08);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(102, 126, 234, 0.12);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      color: #667eea;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .card-title::before {
+      content: '✨';
+      font-size: 1.2rem;
+    }
+
+    /* 技能展示 */
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: rgba(102, 126, 234, 0.04);
+      border-radius: 16px;
+      border: 1px solid rgba(102, 126, 234, 0.08);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .skill-item:hover {
+      background: rgba(102, 126, 234, 0.08);
+      transform: translateX(4px);
+    }
+
+    .skill-name {
+      font-weight: 500;
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .skill-level {
+      color: #667eea;
+      font-weight: 500;
+      font-size: 0.9rem;
+      background: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(102, 126, 234, 0.15);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+    }
+
+    /* 课程列表 */
+    .course-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .course-tag {
+      background: rgba(102, 126, 234, 0.08);
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      color: #666;
+      border: 1px solid rgba(102, 126, 234, 0.12);
+      margin-right: 0;
+      margin-bottom: 0;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .course-tag:hover {
+      background: rgba(102, 126, 234, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .course-tag.highlight {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.25);
+    }
+
+    .course-tag.highlight:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+    }
+
+    /* 个人理念 */
+    .quote {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 40px;
+      border-radius: 20px;
+      margin-bottom: 40px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .quote p {
+      font-size: 1.3rem;
+      font-style: italic;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .quote p span.art-icon {
+      font-size: 0.9rem;
+      margin-left: 4px;
+    }
+
+    .quote p.small-text {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .quote small {
+      opacity: 0.8;
+      font-size: 1rem;
+    }
+
+    /* 兴趣爱好 */
+    .hobbies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hobby-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: rgba(102, 126, 234, 0.08);
+      border-radius: 28px;
+      font-size: 0.95rem;
+      border: 1px solid rgba(102, 126, 234, 0.12);
+      transition: all 0.3s ease;
+    }
+
+    .hobby-item:hover {
+      background: rgba(102, 126, 234, 0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+    }
+
+    /* 学习成果 */
+    .achievement-list,
+    .practice-list,
+    .growth-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .achievement-item,
+    .practice-item,
+    .growth-item {
+      background: rgba(102, 126, 234, 0.04);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(102, 126, 234, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .achievement-item:hover,
+    .practice-item:hover,
+    .growth-item:hover {
+      background: rgba(102, 126, 234, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .achievement-item h3,
+    .practice-item h3,
+    .growth-item h3 {
+      color: #667eea;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .achievement-item p,
+    .practice-item p,
+    .growth-item p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .achievement-item p:last-child,
+    .practice-item p:last-child,
+    .growth-item p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 个人理念 */
+    .philosophy {
+      background: rgba(118, 75, 162, 0.04);
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(118, 75, 162, 0.08);
+    }
+
+    .philosophy p {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      padding-left: 20px;
+      border-left: 3px solid rgba(118, 75, 162, 0.2);
+    }
+
+    .philosophy p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      .header {
+        padding: 30px;
+        margin-bottom: 30px;
+      }
+
+      .profile-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+      }
+
+      .profile-info h1 {
+        font-size: 2.2rem;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .contact-info {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 16px;
+      }
+
+      .header {
+        padding: 24px;
+      }
+
+      .avatar {
+        width: 140px;
+        height: 140px;
+        font-size: 2.8rem;
+      }
+
+      .profile-info h1 {
+        font-size: 2rem;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .quote {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- 头部区域 -->
+    <header class="header">
+      <div class="profile-section">
+        <div class="avatar">👩‍💻</div>
+        <div class="profile-info">
+          <h1>TSYANGHII</h1>
+          <div class="tags">
+            <span class="tag">2024级在读</span>
+            <span class="tag">前端开发学习者</span>
+          </div>
+          <div class="school-info">
+            电子科技大学成都学院 | 计算机学院 | 软件工程专业
+            <br>
+            预计2028年毕业 | 本科学历
+          </div>
+          <div class="motto">
+            个人理念：在学习中试错，在实践中成长✨
+          </div>
+          <div class="contact-info">
+            <a href="mailto:1761633619@qq.com" class="contact-item">
+              📧 1761633619@qq.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 内容区域 -->
+    <div class="content-grid">
+      <!-- 专业技能 -->
+      <div class="card">
+        <h2 class="card-title">专业技能 🖥️</h2>
+        <div class="skill-list">
+          <div class="skill-item">
+            <span class="skill-name">Python</span>
+            <span class="skill-level">熟练</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">SQL</span>
+            <span class="skill-level">掌握</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Java</span>
+            <span class="skill-level">掌握</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Linux基础命令</span>
+            <span class="skill-level">掌握</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">HTML/CSS</span>
+            <span class="skill-level">基础</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">C语言</span>
+            <span class="skill-level">了解</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 非技术技能 -->
+      <div class="card">
+        <h2 class="card-title">非技术技能 🎨</h2>
+        <div class="skill-list">
+          <div class="skill-item">
+            <span class="skill-name">文案写作</span>
+            <span class="skill-level">良好</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">PPT制作</span>
+            <span class="skill-level">良好</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">英语口语</span>
+            <span class="skill-level">基础</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">数据分析</span>
+            <span class="skill-level">基础</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">团队协作</span>
+            <span class="skill-level">良好</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">问题复盘</span>
+            <span class="skill-level">良好</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 核心课程 -->
+      <div class="card">
+        <h2 class="card-title">核心课程 📚</h2>
+        <div class="course-list">
+          <span class="course-tag highlight">OpenEuler系统 (90+)</span>
+          <span class="course-tag highlight">云计算与虚拟机技术 (90+)</span>
+          <span class="course-tag highlight">PBL项目实践（1/7） (90+)</span>
+          <span class="course-tag highlight">PBL项目实践（3/7） (90+)</span>
+        </div>
+      </div>
+
+      <!-- 校园经历 -->
+      <div class="card">
+        <h2 class="card-title">校园经历 🏫</h2>
+        <div class="practice-list">
+          <div class="practice-item">
+            <h3>实习经历 💼</h3>
+            <p>北京三快在线科技有限公司 线上宣传官 | 2025.04-2026.03 | 负责活动线上推广和组织组员管理</p>
+          </div>
+          <div class="practice-item">
+            <h3>校园活动 🎉</h3>
+            <p>电子科技协会成员</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 学习成果 -->
+      <div class="card">
+        <h2 class="card-title">学习成果 🌟</h2>
+        <div class="achievement-list">
+          <div class="achievement-item">
+            <h3>校园项目 💡</h3>
+            <p>axure软件APP生成：智宠云栈 | 交互完成，页面设计</p>
+          </div>
+          <div class="achievement-item">
+            <h3>课程设计 📝</h3>
+            <p>个人作业；智宠云栈 | 工具：axure | 完成需求分析，交互设计和页面设计</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 竞赛/获奖成果 -->
+      <div class="card">
+        <h2 class="card-title">竞赛/获奖成果 🏆</h2>
+        <div class="achievement-list">
+          <div class="achievement-item">
+            <h3>奖学金/荣誉 💰</h3>
+            <p>校级二等奖学金 | 2024-2025 学年</p>
+            <p>国家励志奖学金 | 2025</p>
+          </div>
+          <div class="achievement-item">
+            <h3>证书 📄</h3>
+            <p>CET-4</p>
+            <p>第十届全国大学生预防艾滋病知识竞赛国家一等奖</p>
+            <p>第五届"应急科普华夏行"学生防火防溺水科普知识竞赛国家一等奖</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 专业成长 -->
+      <div class="card">
+        <h2 class="card-title">专业成长 📈</h2>
+        <div class="growth-list">
+          <div class="growth-item">
+            <h3>学习计划 📋</h3>
+            <p>正在学习：C语言程序设计，java web设计，数据库，云计算架构</p>
+          </div>
+          <div class="growth-item">
+            <h3>技能提升 🚀</h3>
+            <p>每周编程练习、技术博客撰写、开源项目贡献</p>
+          </div>
+          <div class="growth-item">
+            <h3>未来目标 🌟</h3>
+            <p>成为全栈开发工程师、参与大型项目开发、获得相关行业认证</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 兴趣爱好 -->
+      <div class="card">
+        <h2 class="card-title">兴趣爱好 🎯</h2>
+        <div class="hobbies">
+          <div class="hobby-item">
+            <span>💻</span>
+            <span>编程</span>
+          </div>
+          <div class="hobby-item">
+            <span>📚</span>
+            <span>阅读</span>
+          </div>
+          <div class="hobby-item">
+            <span>🎵</span>
+            <span>音乐</span>
+          </div>
+          <div class="hobby-item">
+            <span>🏸</span>
+            <span>羽毛球</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 页面加载时的动画效果
+    window.addEventListener('load', function () {
+      const skillBars = document.querySelectorAll('.skill-progress');
+      skillBars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => {
+          bar.style.width = width;
+        }, 300);
+      });
+    });
+  </script>
+</body>
+
+</html>
